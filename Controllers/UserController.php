@@ -18,6 +18,6 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $this->view('frontend.user.index',['abc'=>1,2,3]);
+        return $this->view('frontend.user.index',['abc'=>1,2,3]);
     }
 }

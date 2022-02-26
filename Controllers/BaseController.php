@@ -12,7 +12,7 @@ class BaseController
 
         $viewPath = 'Views/' . str_replace('.', '/', $viewPath) . '.php';
         // echo $viewPath; exit();
-        require_once $viewPath;
+        return require_once $viewPath;
     }
 
     /**
@@ -20,6 +20,6 @@ class BaseController
      */
     protected function loadModel($modelName)
     {
-        require_once 'Models/' . $modelName . '.php';
+        return require_once 'Models/' . $modelName . '.php';
     }
 }
