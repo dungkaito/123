@@ -6,9 +6,9 @@ class BaseController
      * load view function
      * param: frontend.user.index
      */
-    protected function view($viewPath, array $data = [])
+    protected function loadView($viewPath, array $data = [])
     {
-        var_dump($data);
+        // var_dump($data);
 
         $viewPath = 'Views/' . str_replace('.', '/', $viewPath) . '.php';
         // echo $viewPath; exit();

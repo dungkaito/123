@@ -9,23 +9,40 @@ class BaseModel extends Database
         $this->connect = $this->connect();
     }
 
-    public function create()
+    protected function create()
     {
 
     }
 
-    public function read()
+    protected function read()
     {
 
     }
 
-    public function update()
+    protected function update()
     {
 
     }
 
-    public function delete()
+    protected function delete()
     {
 
+    }
+
+    /**
+     * return records of $sql query
+     */
+    protected function query($sql)
+    {
+        return mysqli_query($this->connect, $sql);
+    }
+
+    /**
+     * return a record in $table where $column = $value
+     */
+    protected function getBy($table, $column, $value)
+    {
+        $sql = "SELECT * FROM $table WHERE $column = '$value'";
+        return $this->query($sql);
     }
 }

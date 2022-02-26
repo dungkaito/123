@@ -12,7 +12,6 @@ $actionName = $_REQUEST['action'] ?? 'index';
 
 if ($controllerName[0] === '/') {
     $controllerName = 'SiteController';
-    $actionName = 'login';
 }
 
 require "./Controllers/$controllerName.php";
