@@ -22,8 +22,7 @@ class UserController extends BaseController
     }
 
     /**
-     * login success: redirect to main page
-     * login fail: reload login page with failed login message
+     * get POST data, call model to authen user, load view
      */
     public function login()
     {
@@ -45,9 +44,10 @@ class UserController extends BaseController
     }
 
     /**
-     * main view after login success
+     * call model to get the current logged on user
+     * @return array    user's info
      */
-    public function main()
+    public function getCurrentUser()
     {
         if (!isset($_SESSION['id'])) {
             return $this->loadView('layout.header') 
@@ -55,10 +55,19 @@ class UserController extends BaseController
                  . $this->loadView('layout.footer');
         }
         
-        $user = $this->userModel->getUser('id', $_SESSION['id']);
+        return $this->userModel->getUser('id', $_SESSION['id']);
+    }
+
+    /**
+     * load main page (after login success) view
+     * @return string   main page
+     */
+    public function main()
+    {
+        $user = $this->getCurrentUser();
 
         if (!$user) {
-            return $user;
+            return 'Error: Something wrong with SQL statement.';
         }
 
         return $this->loadView('layout.header')
@@ -68,12 +77,57 @@ class UserController extends BaseController
     }
 
     /**
-     * 
+     * unset session, logout
      */
     public function logout()
     {
         unset($_SESSION['id']);
 
         return header("Location: index.php");
+    }
+
+    /**
+     * get user from model and load people page view
+     * @return string   people page
+     */
+    public function people()
+    {
+        $user = $this->getCurrentUser();
+
+        if (!$user) {
+            return 'Error: Something wrong with SQL statement.';
+        }
+
+        $users = $this->userModel->getAll();
+
+        return $this->loadView('layout.header')
+             . $this->loadView('layout.navbar')
+             . $this->loadView('frontend.user.people', [
+                 'user' => $user,
+                 'users' => $users
+             ])
+             . $this->loadView('layout.footer');
+    }
+
+    /**
+     * add new student
+     */
+    public function add()
+    {
+        // if post param empty, render create student view 
+        if (!isset($_POST['name'])) {
+            return $this->loadView('layout.header')
+                 . $this->loadView('layout.navbar')
+                 . $this->loadView('frontend.user.add')
+                 . $this->loadView('layout.footer');
+        }
+        $avatar = file_get_contents($_FILES['avatar']['tmp_name']);
+        // echo '<img class="rounded img-fluid" alt="avatar" src="data:image/jpeg;base64,' . base64_encode($avatar) . '">';
+        // print_r($_POST);exit();
+        $user = $_POST;
+        $user['avatar'] = $avatar;
+        // array_push($user, $avatar);
+        // print_r($user);exit();
+        $this->userModel->add($user);
     }
 }

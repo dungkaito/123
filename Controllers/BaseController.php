@@ -4,7 +4,8 @@ class BaseController
 {
     /**
      * load view function
-     * param: frontend.user.index
+     * @param string $viewPath      view file path, format example: frontend.user.index
+     * @param array  $data          data to render view (option)
      */
     protected function loadView($viewPath, array $data = [])
     {
