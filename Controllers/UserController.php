@@ -40,23 +40,40 @@ class UserController extends BaseController
         }
         
         // login success
-        session_start();
         $_SESSION['id'] = $user['id'];
+        return header("Location: ?controller=User&action=main");
+    }
+
+    /**
+     * main view after login success
+     */
+    public function main()
+    {
+        if (!isset($_SESSION['id'])) {
+            return $this->loadView('layout.header') 
+                 . $this->loadView('frontend.404')
+                 . $this->loadView('layout.footer');
+        }
+        
+        $user = $this->userModel->getUser('id', $_SESSION['id']);
+
+        if (!$user) {
+            return $user;
+        }
+
         return $this->loadView('layout.header')
              . $this->loadView('layout.navbar')
              . $this->loadView('frontend.user.main', $user)
              . $this->loadView('layout.footer');
-        // header("Location: ?controller=User&action=main");
     }
 
     /**
      * 
      */
-    public function main()
+    public function logout()
     {
-        return $this->loadView('layout.header')
-             . $this->loadView('layout.navbar')
-             . $this->loadView('frontend.user.main')
-             . $this->loadView('layout.footer');
+        unset($_SESSION['id']);
+
+        return header("Location: index.php");
     }
 }

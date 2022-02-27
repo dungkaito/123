@@ -24,4 +24,18 @@ class UserModel extends BaseModel
         }
         return false;
     }
+
+    /**
+     * get an user by $column
+     * return: an user record in array
+     */
+    public function getUser($column, $value)
+    {
+        $result = $this->getBy(self::TABLE, $column, $value);
+        if (mysqli_num_rows($result) === 1) {
+            $row = mysqli_fetch_assoc($result);
+            return $row;
+        }
+        return false;
+    }
 }
