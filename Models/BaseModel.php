@@ -24,11 +24,6 @@ class BaseModel extends Database
 
     }
 
-    protected function delete()
-    {
-
-    }
-
     /**
      * performs a query
      * @param string $sql       SQL statement
@@ -62,4 +57,6 @@ class BaseModel extends Database
         $sql = "SELECT * FROM $table";
         return $this->query($sql);
     }
+
+    
 }

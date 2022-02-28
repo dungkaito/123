@@ -1,19 +1,19 @@
 <div class="container">
-<form method="POST" action="?controller=user&action=add" enctype="multipart/form-data">
+    <form method="POST" action="?controller=user&action=add" enctype="multipart/form-data">
 
-    <div class="row">
-        <div class="col-md-4 mt-5">
-            <img class="rounded img-fluid" id="img">
-            <input type="file" accept="image/*" name="avatar" id="file" onchange="loadFile(event)" style="display: none;">
-            <label class="btn btn-primary btn-sm d-flex justify-content-center" for="file" style="cursor: pointer;">Tải lên ảnh đại diện</label>
-        </div>
-        <div class="col-md-8 mt-5">
+        <div class="row">
+            <div class="col-md-4 mt-5">
+                <img class="rounded img-fluid" id="img">
+                <input type="file" accept="image/*" name="avatar" id="file" onchange="loadFile(event)" style="display: none;">
+                <label class="btn btn-primary btn-sm d-flex justify-content-center" for="file" style="cursor: pointer;">Tải lên ảnh đại diện</label>
+            </div>
+            <div class="col-md-8 mt-5">
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <label for="#">Tài khoản:</label>
                     </div>
                     <div class="form-group col-md-5">
-                        <input type="text" class="form-control" name="username">
+                        <input type="text" class="form-control" name="username" required minlength="1">
                     </div>
                 </div>
                 <div class="form-row">
@@ -21,7 +21,7 @@
                         <label for="#">Mật khẩu:</label>
                     </div>
                     <div class="form-group col-md-5">
-                        <input type="text" class="form-control" name="password">
+                        <input type="text" class="form-control" name="password" required minlength="1">
                     </div>
                 </div>
                 <div class="form-row">
@@ -29,7 +29,7 @@
                         <label for="#">Họ tên sinh viên:</label>
                     </div>
                     <div class="form-group col-md-5">
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" class="form-control" name="name" required minlength="1">
                     </div>
                 </div>
                 <div class="form-row">
@@ -49,10 +49,19 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Thêm sinh viên</button>
+            </div>
         </div>
-    </div>
     </form>
-
+    <?php
+    if (isset($data['status'])) {
+        echo '<br>';
+        if ($data['status'] == 1) {
+            echo '<p style="text-align: center; font-size: 40px">Thêm sinh viên thành công!</p>';
+        } else {
+            echo '<p style="text-align: center; font-size: 40px">Thêm sinh viên thất bại!</p>';
+        }
+    }
+    ?>
 </div>
 
 <script>

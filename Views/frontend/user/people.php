@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="padding-bottom:80px;">
     <br>
     <h3>Giáo viên</h3>
     <div class="table-responsive">
@@ -20,7 +20,7 @@
                             <td><?= $u['name']; ?></td>
 
                             <?php if ($u['id'] != $data['user']['id']) { ?>
-                            <td><a href="#" class="btn btn-info btn-sm" style="white-space: nowrap">Xem thông tin</a></td>
+                                <td><a href="?controller=user&action=detail&id=<?= $u['id'] ?>" class="btn btn-info btn-sm" style="white-space: nowrap">Xem thông tin</a></td>
                             <?php } ?>
 
                         </tr>
@@ -39,7 +39,7 @@
         <div class="col-6 text-right pr-4">
             <?php if ($data['user']['role'] == 1) { ?>
 
-            <a href="?controller=user&action=add" class="btn btn-primary btn-sm" role="button">Thêm sinh viên</a>
+                <a href="?controller=user&action=add" class="btn btn-primary btn-sm" role="button">Thêm sinh viên</a>
 
             <?php } ?>
         </div>
@@ -55,8 +55,8 @@
                     <th scope="col" style="width:1%;"></th>
 
                     <?php if ($data['user']['role'] == 1) { ?>
-                    <th scope="col" style="width:1%;"></th>
-                    <th scope="col" style="width:1%;"></th>
+                        <th scope="col" style="width:1%;"></th>
+                        <th scope="col" style="width:1%;"></th>
                     <?php } ?>
                 </tr>
             </thead>
@@ -69,14 +69,20 @@
                             <th scope="row"><?= $count++; ?></th>
                             <td><?= $u['name']; ?></td>
                             <?php if ($u['id'] != $data['user']['id']) { ?>
-                                
-                            <td><a href="#" class="btn btn-info btn-sm" style="white-space: nowrap">Xem thông tin</a></td>
-                            
-                            <?php if ($data['user']['role'] == 1) { ?>
-                            <td><a href="#" class="btn btn-warning btn-sm" style="white-space: nowrap">Sửa thông tin</a></td>
-                            <td><a href="#" class="btn btn-dark btn-sm" style="white-space: nowrap">Xoá sinh viên</a></td>
-                            <?php } ?>
-                            
+
+                                <td><a href="?controller=user&action=detail&id=<?= $u['id'] ?>" class="btn btn-info btn-sm" style="white-space: nowrap">Xem thông tin</a></td>
+
+                                <?php if ($data['user']['role'] == 1) { ?>
+                                    <td><a href="?controller=user&action=edit&id=<?= $u['id'] ?>" class="btn btn-warning btn-sm" style="white-space: nowrap">Sửa thông tin</a></td>
+                                    <td>
+                                    <form method="post" action="?controller=user&action=delete">
+                                        <input type="hidden" name="id" value="<?= $u['id'] ?>">
+                                        <a onclick="this.parentElement.submit();" class="btn btn-dark btn-sm" style="white-space: nowrap">Xoá sinh viên</a>
+                                        
+                                    </form>
+                                    </td>
+                                <?php } ?>
+
                             <?php } ?>
                         </tr>
 

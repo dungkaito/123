@@ -12,4 +12,11 @@ class SiteController extends BaseController
              . $this->loadView('frontend.index')
              . $this->loadView('layout.footer');
     }
+
+    public function error()
+    {
+        return $this->loadView('layout.header')
+             . $this->loadView('frontend.404')
+             . $this->loadView('layout.footer');
+    }
 }

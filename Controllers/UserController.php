@@ -110,7 +110,7 @@ class UserController extends BaseController
     }
 
     /**
-     * add new student
+     * add new student controller
      */
     public function add()
     {
@@ -121,13 +121,96 @@ class UserController extends BaseController
                  . $this->loadView('frontend.user.add')
                  . $this->loadView('layout.footer');
         }
-        $avatar = file_get_contents($_FILES['avatar']['tmp_name']);
+        // var_dump(file_get_contents($_FILES['avatar']['tmp_name']));exit();
+        if (($_FILES['avatar']['tmp_name']) !== '')
+            $avatar = file_get_contents($_FILES['avatar']['tmp_name']);
+        else $avatar = "";
         // echo '<img class="rounded img-fluid" alt="avatar" src="data:image/jpeg;base64,' . base64_encode($avatar) . '">';
         // print_r($_POST);exit();
         $user = $_POST;
         $user['avatar'] = $avatar;
+        $user['role'] = 2;
         // array_push($user, $avatar);
         // print_r($user);exit();
-        $this->userModel->add($user);
+        if ($this->userModel->add($user)) {
+            return $this->loadView('layout.header')
+                 . $this->loadView('layout.navbar')
+                 . $this->loadView('frontend.user.add', ['status' => '1'])
+                 . $this->loadView('layout.footer');
+        }
+        else {
+            return $this->loadView('layout.header')
+                 . $this->loadView('layout.navbar')
+                 . $this->loadView('frontend.user.add', ['status' => '0'])
+                 . $this->loadView('layout.footer');
+        }
+    }
+
+    /**
+     * view user info page
+     */
+    public function detail()
+    {
+        $user = $this->userModel->getUser('id', $_REQUEST['id']);
+        
+        if (!$user) {
+            echo 'Error: Can not get user info.';
+        }
+
+        return $this->loadView('layout.header')
+             . $this->loadView('layout.navbar')
+             . $this->loadView('frontend.user.detail', $user)
+             . $this->loadView('layout.footer');
+    }
+
+    /**
+     * teacher edit students info
+     */
+    public function edit()
+    {
+        // if post param empty, render edit student view 
+        if (empty($_POST)) {
+            $user = $this->userModel->getUser('id', $_REQUEST['id']);
+            
+            if (!$user) {
+                echo 'Error: Can not get user info.';
+            }
+    
+            return $this->loadView('layout.header')
+                 . $this->loadView('layout.navbar')
+                 . $this->loadView('frontend.user.edit', ['user' => $user])
+                 . $this->loadView('layout.footer');
+        }
+
+        if (($_FILES['avatar']['tmp_name']) !== '')
+            $avatar = file_get_contents($_FILES['avatar']['tmp_name']);
+        else $avatar = "";
+        
+        $user = $_POST;
+        $user['avatar'] = $avatar;
+        $user['role'] = 2;
+        $user['id'] = $_GET['id'];
+        
+        if ($this->userModel->edit($user)) {
+            return $this->loadView('layout.header')
+                 . $this->loadView('layout.navbar')
+                 . $this->loadView('frontend.user.edit', ['user' => $user, 'status' => '1'])
+                 . $this->loadView('layout.footer');
+        }
+        else {
+            return $this->loadView('layout.header')
+                 . $this->loadView('layout.navbar')
+                 . $this->loadView('frontend.user.edit', ['user' => $user, 'status' => '0'])
+                 . $this->loadView('layout.footer');
+        }
+    }
+
+    /**
+     * teacher delete students from system
+     */
+    public function delete()
+    {
+        $this->userModel->delete($_POST['id']);
+        return header("Location: ?controller=User&action=people");
     }
 }

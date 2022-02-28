@@ -10,7 +10,7 @@ class UserModel extends BaseModel
     }
 
     /**
-     * login success: return an user record from DB
+     * login success: return an user record from database
      * login fail: return false
      */
     public function login($username, $password)
@@ -27,7 +27,7 @@ class UserModel extends BaseModel
 
     /**
      * get an user by $column
-     * return: an user record in array
+     * @return array    an user record
      */
     public function getUser($column, $value)
     {
@@ -40,7 +40,7 @@ class UserModel extends BaseModel
     }
 
     /**
-     * get all users in db
+     * get all users in database
      * @return array    an array of user's info arrays
      */
     public function getAll()
@@ -57,9 +57,47 @@ class UserModel extends BaseModel
         return $users;
     }
 
+    /**
+     * insert new student record to database
+     * @param array $user   user data to insert
+     */
     public function add($user)
     {
-        $ret = $this->create(self::TABLE, $user);
-        return $ret;
+        // var_dump($user['avatar']);exit();
+        $sql = "INSERT INTO users (username, password, name, email, phone, avatar, role)
+                VALUE (\"{$user['username']}\", \"{$user['password']}\", \"{$user['name']}\", \"{$user['email']}\", 
+                       \"{$user['phone']}\", \"" . mysqli_real_escape_string($this->connect, $user['avatar']) . "\", 
+                       {$user['role']})";
+                
+        // var_dump($sql);exit();
+        return $this->query($sql);
+        // var_dump($ret);
+    }
+
+    /**
+     * update data in `users` table
+     * @param array $user   user data to update
+     */
+    public function edit($user)
+    {
+        $sql = "UPDATE users 
+                SET username=\"{$user['username']}\", password=\"{$user['password']}\", name=\"{$user['name']}\",  
+                    email=\"{$user['email']}\", phone=\"{$user['phone']}\", 
+                    avatar=\"" . mysqli_real_escape_string($this->connect, $user['avatar']) . "\", 
+                    role={$user['role']} 
+                WHERE id={$user['id']}";
+        // var_dump($sql);exit();
+        return $this->query($sql);
+        // var_dump($ret);
+    }
+
+    /**
+     * delete a record from `users` table
+     * @param string $id    id of student will be delete from database
+     */
+    public function delete($id)
+    {
+        $sql = "DELETE FROM users WHERE id={$id}";
+        $this->query($sql);
     }
 }
