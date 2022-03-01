@@ -182,10 +182,16 @@ class UserController extends BaseController
                  . $this->loadView('layout.footer');
         }
 
-        if (($_FILES['avatar']['tmp_name']) !== '')
+        if (($_FILES['avatar']['tmp_name']) !== '') {
+            // if avatar was changed
             $avatar = file_get_contents($_FILES['avatar']['tmp_name']);
-        else $avatar = "";
-        
+        }
+        else {
+            // if avatar was not changed
+            $_user = $this->userModel->getUser('id', $_GET['id']);
+            $avatar = $_user['avatar'];
+        }
+        // var_dump($avatar);
         $user = $_POST;
         $user['avatar'] = $avatar;
         $user['role'] = 2;
@@ -213,4 +219,58 @@ class UserController extends BaseController
         $this->userModel->delete($_POST['id']);
         return header("Location: ?controller=User&action=people");
     }
+
+    /**
+     * user update info
+     */
+    public function update()
+    {
+        // var_dump($_POST);
+        if (empty($_POST)) {
+            $user = $this->getCurrentUser();
+
+            if (!$user) {
+                return 'Error: Can not get user info.';
+            }
+
+            return $this->loadView('layout.header')
+                . $this->loadView('layout.navbar')
+                . $this->loadView('frontend.user.update', ['user' => $user])
+                . $this->loadView('layout.footer');
+        }
+        // var_dump($_POST);exit();
+
+        if (($_FILES['avatar']['tmp_name']) !== '') {
+            // if avatar was changed
+            $avatar = file_get_contents($_FILES['avatar']['tmp_name']);
+        }
+        else {
+            // if avatar was not changed
+            $_user = $this->getCurrentUser();
+            $avatar = $_user['avatar'];
+        }
+        // var_dump($avatar);
+        
+        $user = $_POST;
+        $user['avatar'] = $avatar;
+
+        // var_dump($user);exit();
+
+        if ($this->userModel->edit($user)) {
+            return $this->loadView('layout.header')
+                 . $this->loadView('layout.navbar')
+                 . $this->loadView('frontend.user.update', ['user' => $user, 'status' => '1'])
+                 . $this->loadView('layout.footer');
+        }
+        else {
+            return $this->loadView('layout.header')
+                 . $this->loadView('layout.navbar')
+                 . $this->loadView('frontend.user.update', ['user' => $user, 'status' => '0'])
+                 . $this->loadView('layout.footer');
+        }
+
+    }
+
+    
+
 }

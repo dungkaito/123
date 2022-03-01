@@ -1,6 +1,7 @@
-<div class="container">
-    <form method="POST" action="?controller=user&action=edit&id=<?= $data['user']['id']; ?>" enctype="multipart/form-data">
-
+<div class="container" style="padding-bottom:100px;">
+    <form method="POST" action="?controller=user&action=update" enctype="multipart/form-data">
+        <input type="hidden" name='id' value="<?= $data['user']['id'] ?>">
+        <input type="hidden" name='role' value="<?= $data['user']['role'] ?>">
         <div class="row">
             <div class="col-md-4 mt-5">
                 <?php
@@ -15,7 +16,10 @@
                         <label for="#">Tài khoản:</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <input type="text" class="form-control" name="username" value="<?php echo $data['user']['username'] ?>" required minlength="1">
+                        <input <?php
+                                if ($data['user']['role'] == 2)
+                                    echo 'readonly';
+                                ?> type="text" class="form-control" name="username" value="<?php echo $data['user']['username'] ?>" required minlength="1">
                     </div>
                 </div>
                 <div class="form-row">
@@ -31,7 +35,10 @@
                         <label for="#"><?php echo ($data['user']['role'] == 1) ? 'Giáo viên' : 'Sinh viên'; ?>:</label>
                     </div>
                     <div class="form-group col-md-6">
-                        <input type="text" class="form-control" name="name" value="<?php echo $data['user']['name'] ?>" required minlength="1">
+                        <input <?php
+                                if ($data['user']['role'] == 2)
+                                    echo 'readonly';
+                                ?> type="text" class="form-control" name="name" value="<?php echo $data['user']['name'] ?>" required minlength="1">
                     </div>
                 </div>
                 <div class="form-row">
@@ -50,7 +57,7 @@
                         <input type="text" class="form-control" name="phone" value="<?php echo $data['user']['phone'] ?>">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Sửa thông tin</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
             </div>
         </div>
     </form>
@@ -58,9 +65,9 @@
     if (isset($data['status'])) {
         echo '<br>';
         if ($data['status'] == 1) {
-            echo '<p style="text-align: center; font-size: 40px">Sửa thông tin thành công!</p>';
+            echo '<p style="text-align: center; font-size: 40px">Cập nhật thông tin thành công!</p>';
         } else {
-            echo '<p style="text-align: center; font-size: 40px">Sửa thông tin thất bại!</p>';
+            echo '<p style="text-align: center; font-size: 40px">Cập nhật thông tin thất bại!</p>';
         }
     }
     ?>
@@ -71,4 +78,18 @@
         var image = document.getElementById('img');
         image.src = URL.createObjectURL(event.target.files[0]);
     }
+
+    // function loadImgUrl() {
+    //     var imgUrl = document.getElementById('img_url').value;
+    //     document.getElementById('img').src = imgUrl;
+    // }
+    // function getImg() {
+    //     var imgSrc = document.getElementById('img').src;
+    //     if (imgSrc.includes('localhost')) {
+    //         document.getElementById('img-post').value = document.getElementById('file').files[0];
+    //     }
+    //     else {
+    //         document.getElementById('img-post').value = imgSrc;
+    //     }
+    // }
 </script>

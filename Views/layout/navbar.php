@@ -33,6 +33,9 @@
 
         </ul>
         <ul class="navbar-nav ml-auto">
+            <li class="nav-item pr-3">
+                <a href="?controller=user&action=messenger"><i class="fab fa-facebook-messenger"></i></a>
+            </li>
             <li class="nav-item">
                 <a href="?controller=user&action=logout"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a>
             </li>

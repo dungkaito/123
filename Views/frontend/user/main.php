@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="padding-bottom:100px;">
     <div class="row">
         <div class="col-md-4 mt-5">
             <?php
@@ -38,6 +38,7 @@
                     <input disabled type="text" class="form-control" value="<?php echo $data['phone'] ?>">
                 </div>
             </div>
+            <a href="?controller=user&action=update" class="btn btn-primary">Cập nhật thông tin</a>
         </div>
     </div>
 </div>
