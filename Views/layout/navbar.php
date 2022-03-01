@@ -7,28 +7,28 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-                <a class="nav-link
+                <a class="nav-link"
                 <?php
                     if(isset($_GET['action']) && $_GET['action'] == 'people')
-                        echo 'active'; 
+                        echo ' style="border-bottom: 5px solid #5BC0EB; color: #5BC0EB" '; 
                 ?>
-                " href="?controller=user&action=people">Mọi người</a>
+                href="?controller=user&action=people">Mọi người</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link
+                <a class="nav-link"
                 <?php
-                    if(isset($_GET['action']) && $_GET['action'] == 'classwork')
-                        echo 'active'; 
+                    if(isset($_GET['controller']) && $_GET['controller'] == 'classwork')
+                        echo ' style="border-bottom: 5px solid #5BC0EB; color: #5BC0EB" '; 
                 ?>
-                " href="classwork.html">Bài tập</a>
+                href="?controller=classwork&action=main">Bài tập</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link
+                <a class="nav-link"
                 <?php
                     if(isset($_GET['action']) && $_GET['action'] == 'challenge')
-                        echo 'active'; 
+                        echo ' style="border-bottom: 5px solid #5BC0EB; color: #5BC0EB" '; 
                 ?>
-                " href="challenge.html">Thử thách</a>
+                href="?controller=user&action=challenge">Thử thách</a>
             </li>
 
         </ul>
