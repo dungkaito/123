@@ -2,13 +2,13 @@
     <div class="row">
         <div class="col-md-4 mt-5 table-responsive">
             <table class="table table-hover">
-                
+
                 <tbody>
                     <?php foreach ($data['users'] as $user) { ?>
-                    <tr class="d-flex select-user" id="<?= $user['id'] ?>">
-                        <th class="col-2"><?php echo '<img class="rounded-circle img-fluid" alt="avatar" src="data:image/jpeg;base64,' . base64_encode($user['avatar']) . '">' ?></th>
-                        <th class="col-10 align-text-bottom"><?= $user['name'] ?></th>
-                    </tr>
+                        <tr class="d-flex select-user" id="<?= $user['id'] ?>">
+                            <th class="col-2"><?php echo '<img class="rounded-circle img-fluid" alt="avatar" src="data:image/jpeg;base64,' . base64_encode($user['avatar']) . '">' ?></th>
+                            <th class="col-10 align-text-bottom"><?= $user['name'] ?></th>
+                        </tr>
                     <?php } ?>
                 </tbody>
             </table>
@@ -43,5 +43,4 @@
             showMessage(user);
         });
     });
-    
 </script>

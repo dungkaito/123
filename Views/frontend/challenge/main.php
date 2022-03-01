@@ -23,19 +23,19 @@
                 </tr>
             </thead>
             <tbody>
-            <?php $count = 1 ?>
+                <?php $count = 1 ?>
                 <?php foreach ($data['challenges'] as $c) { ?>
 
-                        <tr>
+                    <tr>
 
 
-                            <th scope="row"><?= $count++; ?></th>
-                            <td><?= $c['title']; ?></td>
-                            <td><?= $c['date']; ?></td>
-                            <td><a href="?controller=challenge&action=detail&id=<?= $c['id'] ?>" class="btn btn-info btn-sm" style="white-space: nowrap">Chơi</a></td>
-                            
+                        <th scope="row"><?= $count++; ?></th>
+                        <td><?= $c['title']; ?></td>
+                        <td><?= $c['date']; ?></td>
+                        <td><a href="?controller=challenge&action=detail&id=<?= $c['id'] ?>" class="btn btn-info btn-sm" style="white-space: nowrap">Chơi</a></td>
 
-                        </tr>
+
+                    </tr>
 
                 <?php } ?>
             </tbody>

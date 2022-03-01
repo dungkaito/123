@@ -22,7 +22,7 @@ foreach ($data['messages'] as $ms) {
                     <input type="hidden" name="id" value="<?= $ms['id'] ?>">
                     <a href="javascript:$('#deleteForm<?= $ms['id'] ?>').submit();">Xoá</a>
                 </form>
-                
+
             </div>
             <b><?= $ms['content'] ?></b>
         </div>

@@ -22,9 +22,9 @@
         </div>
         <div class="form-group col-md-10">
             <?php if ($data['classwork']['attachment'] != "") { ?>
-            <a href="?controller=classwork&action=download&id=<?= $data['classwork']['id'] ?>&filename=<?= $data['classwork']['attachment'] ?>">Tải xuống</a>
+                <a href="?controller=classwork&action=download&id=<?= $data['classwork']['id'] ?>&filename=<?= $data['classwork']['attachment'] ?>">Tải xuống</a>
             <?php } else { ?>
-            <span>Không có</span>
+                <span>Không có</span>
             <?php } ?>
         </div>
     </div>
@@ -68,29 +68,29 @@
     }
     ?>
 
-<?php if ($data['user']['role'] == 1) { ?>
+    <?php if ($data['user']['role'] == 1) { ?>
 
-    <div class="row">
-        <div class="col-6">
-            <h3>Danh sách bài nộp</h3>
+        <div class="row">
+            <div class="col-6">
+                <h3>Danh sách bài nộp</h3>
+            </div>
+            <div class="col-6 text-right pr-4">
+
+            </div>
         </div>
-        <div class="col-6 text-right pr-4">
-            
-        </div>
-    </div>
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Sinh viên</th>
-                    <th scope="col">Ngày nộp</th>
-                    <th scope="col" style="width:1%;"></th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php $count = 1 ?>
-                <?php foreach ($data['assignments'] as $a) { ?>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Sinh viên</th>
+                        <th scope="col">Ngày nộp</th>
+                        <th scope="col" style="width:1%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $count = 1 ?>
+                    <?php foreach ($data['assignments'] as $a) { ?>
 
                         <tr>
 
@@ -99,14 +99,14 @@
                             <td><?= $a['studentName']; ?></td>
                             <td><?= $a['date']; ?></td>
                             <td><a href="?controller=assignment&action=detail&id=<?= $a['id'] ?>" class="btn btn-info btn-sm" style="white-space: nowrap">Xem chi tiết</a></td>
-                            
+
 
                         </tr>
 
-                <?php } ?>
-            </tbody>
-        </table>
-    </div>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
     <?php } ?>
 
 </div>

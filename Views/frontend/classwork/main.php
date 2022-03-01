@@ -23,19 +23,19 @@
                 </tr>
             </thead>
             <tbody>
-            <?php $count = 1 ?>
+                <?php $count = 1 ?>
                 <?php foreach ($data['classworks'] as $cw) { ?>
 
-                        <tr>
+                    <tr>
 
 
-                            <th scope="row"><?= $count++; ?></th>
-                            <td><?= $cw['title']; ?></td>
-                            <td><?= $cw['date']; ?></td>
-                            <td><a href="?controller=classwork&action=detail&id=<?= $cw['id'] ?>" class="btn btn-info btn-sm" style="white-space: nowrap">Xem chi tiết</a></td>
-                            
+                        <th scope="row"><?= $count++; ?></th>
+                        <td><?= $cw['title']; ?></td>
+                        <td><?= $cw['date']; ?></td>
+                        <td><a href="?controller=classwork&action=detail&id=<?= $cw['id'] ?>" class="btn btn-info btn-sm" style="white-space: nowrap">Xem chi tiết</a></td>
 
-                        </tr>
+
+                    </tr>
 
                 <?php } ?>
             </tbody>

@@ -7,28 +7,22 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-                <a class="nav-link"
-                <?php
-                    if(isset($_GET['action']) && $_GET['action'] == 'people')
-                        echo ' style="border-bottom: 5px solid #5BC0EB; color: #5BC0EB" '; 
-                ?>
-                href="?controller=user&action=people">Mọi người</a>
+                <a class="nav-link" <?php
+                                    if (isset($_GET['action']) && $_GET['action'] == 'people')
+                                        echo ' style="border-bottom: 5px solid #5BC0EB; color: #5BC0EB" ';
+                                    ?> href="?controller=user&action=people">Mọi người</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"
-                <?php
-                    if(isset($_GET['controller']) && $_GET['controller'] == 'classwork')
-                        echo ' style="border-bottom: 5px solid #5BC0EB; color: #5BC0EB" '; 
-                ?>
-                href="?controller=classwork&action=main">Bài tập</a>
+                <a class="nav-link" <?php
+                                    if (isset($_GET['controller']) && $_GET['controller'] == 'classwork')
+                                        echo ' style="border-bottom: 5px solid #5BC0EB; color: #5BC0EB" ';
+                                    ?> href="?controller=classwork&action=main">Bài tập</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"
-                <?php
-                    if(isset($_GET['action']) && $_GET['action'] == 'challenge')
-                        echo ' style="border-bottom: 5px solid #5BC0EB; color: #5BC0EB" '; 
-                ?>
-                href="?controller=challenge&action=main">Thử thách</a>
+                <a class="nav-link" <?php
+                                    if (isset($_GET['action']) && $_GET['action'] == 'challenge')
+                                        echo ' style="border-bottom: 5px solid #5BC0EB; color: #5BC0EB" ';
+                                    ?> href="?controller=challenge&action=main">Thử thách</a>
             </li>
 
         </ul>

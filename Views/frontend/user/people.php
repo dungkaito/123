@@ -75,11 +75,11 @@
                                 <?php if ($data['user']['role'] == 1) { ?>
                                     <td><a href="?controller=user&action=edit&id=<?= $u['id'] ?>" class="btn btn-warning btn-sm" style="white-space: nowrap">Sửa thông tin</a></td>
                                     <td>
-                                    <form method="post" action="?controller=user&action=delete">
-                                        <input type="hidden" name="id" value="<?= $u['id'] ?>">
-                                        <a onclick="this.parentElement.submit();" class="btn btn-dark btn-sm" style="white-space: nowrap">Xoá sinh viên</a>
-                                        
-                                    </form>
+                                        <form method="post" action="?controller=user&action=delete">
+                                            <input type="hidden" name="id" value="<?= $u['id'] ?>">
+                                            <a onclick="this.parentElement.submit();" class="btn btn-dark btn-sm" style="white-space: nowrap">Xoá sinh viên</a>
+
+                                        </form>
                                     </td>
                                 <?php } ?>
 

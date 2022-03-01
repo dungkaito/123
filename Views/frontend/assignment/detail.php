@@ -21,10 +21,10 @@
             <label for="#">File đính kèm:</label>
         </div>
         <div class="form-group col-md-10">
-        <?php if ($data['assignment']['attachment'] != "") { ?>
-            <a href="?controller=assignment&action=download&id=<?= $data['assignment']['id'] ?>&filename=<?= $data['assignment']['attachment'] ?>">Tải xuống</a>
+            <?php if ($data['assignment']['attachment'] != "") { ?>
+                <a href="?controller=assignment&action=download&id=<?= $data['assignment']['id'] ?>&filename=<?= $data['assignment']['attachment'] ?>">Tải xuống</a>
             <?php } else { ?>
-            <span>Không có</span>
+                <span>Không có</span>
             <?php } ?>
         </div>
     </div>

@@ -11,7 +11,7 @@ class Database
     const DB_NAME = 'challenge5a_dungdd';
 
     /**
-     * connect to db
+     * connect to db,
      * return `connect` instance if success, else return false
      */
     public function connect()

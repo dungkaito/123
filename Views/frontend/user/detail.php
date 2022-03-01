@@ -47,7 +47,7 @@
                 </div>
                 <!-- <div class="btn btn-primary">Gửi</div> -->
                 <button type="submit" class="btn btn-primary">Trò chuyện</button>
-            <!-- </form> -->
+                <!-- </form> -->
         </div>
     </div>
 </div>
