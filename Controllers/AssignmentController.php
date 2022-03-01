@@ -1,38 +1,16 @@
 <?php
 
-class ClassworkController extends BaseController
+class AssignmentController extends BaseController
 {
-    private $classworkModel;
+    private $assignmentModel;
     private $userModel;
 
-    /**
-     * 
-     */
     public function __construct()
     {
-        $this->loadModel('ClassworkModel');
-        $this->classworkModel = new ClassworkModel;
+        $this->loadModel('AssignmentModel');
+        $this->assignmentModel = new AssignmentModel;
         $this->loadModel('UserModel');
         $this->userModel = new UserModel;
-    }
-
-    /**
-     * main view (all classworks)
-     */
-    public function main()
-    {
-        $user = $this->getCurrentUser();
-        $classworks = $this->classworkModel->getAll();
-        $classworks = array_reverse($classworks);
-        // print("<pre>" . print_r($classworks, true) . "</pre>"); exit();
-
-        return $this->loadView('layout.header')
-            . $this->loadView('layout.navbar')
-            . $this->loadView('frontend.classwork.main', [
-                'classworks' => $classworks,
-                'user' => $user
-            ])
-            . $this->loadView('layout.footer');
     }
 
     /**
@@ -50,19 +28,33 @@ class ClassworkController extends BaseController
         return $this->userModel->getUser('id', $_SESSION['id']);
     }
 
-    /**
-     * add new classwork
-     */
+
+
     public function add()
     {
+        // require_once "./Controllers/ClassworkController.php";
+        // $c = new $ClassworkController;
         $user = $this->getCurrentUser();
-
-        if (isset($_POST['title'])) {
+        $classwork = $this->assignmentModel->getClassworkById($_POST['idClasswork']);
+        // print("<pre>" . print_r($classwork, true) . "</pre>"); exit();
+        // $classwork = $c
+        if (isset($_POST['description'])) {
+            if ($this->assignmentModel->checkSubmited($user['id'], $classwork['id'])) {
+                return $this->loadView('layout.header')
+                    . $this->loadView('layout.navbar')
+                    . $this->loadView('frontend.classwork.detail', [
+                        'classwork' => $classwork,
+                        'error2' => "Bạn đã nộp bài trước đó",
+                        'user' => $user
+                    ])
+                    . $this->loadView('layout.footer');
+            }
             // print("<pre>" . print_r(($_FILES), true) . "</pre>"); exit();
             // print("<pre>" . print_r($_POST, true) . "</pre>"); exit();
-            $classwork['idTeacher'] = $user['id'];
-            $classwork['title'] = $_POST['title'];
-            $classwork['description'] = $_POST['description'];
+            $assignment['idStudent'] = $user['id'];
+            $assignment['studentName'] = $user['name'];
+            $assignment['idClasswork'] = $_POST['idClasswork'];
+            $assignment['description'] = $_POST['description'];
 
             if ($_FILES['file']['error'] != 4) {
                 // print("<pre>" . print_r($_FILES, true) . "</pre>"); exit();
@@ -81,75 +73,62 @@ class ClassworkController extends BaseController
                 $filename = $filename1 . rand() . '.' . $extension;
                 // die($filename);
 
-                $destination = 'public/classwork/' . $filename;
+                $destination = 'public/assignment/' . $filename;
 
 
                 if (!in_array($extension, ['txt', 'pdf', 'docx', 'zip'])) {
-                    $error = "Hệ thống chỉ chấp nhận file đính kèm định dạng txt, pdf, doc, docx, zip.";
+                    $error2 = "Hệ thống chỉ chấp nhận file đính kèm định dạng txt, pdf, doc, docx, zip.";
                 } else if ($size > 50000000) {
                     // > 50MB
-                    $error = "File đính kèm dung lượng quá lớn.";
+                    $error2 = "File đính kèm dung lượng quá lớn.";
                 } else {
                     if (move_uploaded_file($file, $destination)) {
-                        $classwork['attachment'] = $filename;
-                        $this->classworkModel->insert($classwork);
-                        return header("Location: ?controller=classwork&action=main");
+                        $assignment['attachment'] = $filename;
+                        $this->assignmentModel->insert($assignment);
+                        return header("Location: ?controller=classwork&action=detail&id={$assignment['idClasswork']}");
                     } else {
-                        $error = "Upload file thất bại.";
+                        $error2 = "Upload file thất bại.";
                     }
                 }
 
 
                 // $classwork['attachment'] = file_get_contents($_FILES['file']['tmp_name']);
             } else {
-                $classwork['attachment'] = "";
-                $this->classworkModel->insert($classwork);
-                return header("Location: ?controller=classwork&action=main");
+                $assignment['attachment'] = "";
+                $this->assignmentModel->insert($assignment);
+                return header("Location: ?controller=classwork&action=detail&id={$assignment['idClasswork']}");
             }
 
             // print("<pre>" . print_r($classwork, true) . "</pre>"); exit();
             return $this->loadView('layout.header')
                 . $this->loadView('layout.navbar')
-                . $this->loadView('frontend.classwork.add', ['error' => $error])
+                . $this->loadView('frontend.classwork.detail', [
+                    'classwork' => $classwork,
+                    'error2' => $error2,
+                    'user' => $user
+                ])
                 . $this->loadView('layout.footer');
         }
-
-        return $this->loadView('layout.header')
-            . $this->loadView('layout.navbar')
-            . $this->loadView('frontend.classwork.add')
-            . $this->loadView('layout.footer');
     }
 
-    /**
-     * detail a classwork
-     */
     public function detail()
     {
-        $user = $this->getCurrentUser();
-        $classwork = $this->classworkModel->getById($_GET['id']);
-        $assignments = $this->classworkModel->getAssignments($classwork['id']);
-        // print("<pre>" . print_r($assignments, true) . "</pre>"); exit();
+        $assignment = $this->assignmentModel->getById($_GET['id']);
         return $this->loadView('layout.header')
             . $this->loadView('layout.navbar')
-            . $this->loadView('frontend.classwork.detail', [
-                'classwork' => $classwork,
-                'user' => $user,
-                'assignments' => $assignments
-            ])
+            . $this->loadView('frontend.assignment.detail', ['assignment' => $assignment])
             . $this->loadView('layout.footer');
     }
 
     /**
-     * download classwork attachment file
+     * download assignment attachment file
      */
     public function download()
     {
-        // $filename = $_GET['filename'];
-        // var_dump($filename);
         if (isset($_GET['filename'], $_GET['id'])) {
             $filename = $_GET['filename'];
 
-            $filepath = 'public/classwork/' . $filename;
+            $filepath = 'public/assignment/' . $filename;
             // die($filepath);
             if (file_exists($filepath)) {
                 header('Content-Description: File Transfer');

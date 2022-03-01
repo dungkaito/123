@@ -2,15 +2,15 @@
 
 class ClassworkModel extends BaseModel
 {
-    const TABLE = 'classwork';
+    const TABLE = 'classworks';
 
     /**
-     * insert a new record to classwork database
+     * insert a new record to classworks table
      * @param array $classwork     message to insert
      */
     public function insert($classwork)
     {
-        $sql = "INSERT INTO classwork (idTeacher, title, description, attachment)
+        $sql = "INSERT INTO classworks (idTeacher, title, description, attachment)
                 VALUES ({$classwork['idTeacher']},
                         \"" . mysqli_real_escape_string($this->connect, $classwork['title']) . "\",
                         \"" . mysqli_real_escape_string($this->connect, $classwork['description']) . "\", 
@@ -47,5 +47,12 @@ class ClassworkModel extends BaseModel
             return $row;
         }
         return false;
+    }
+
+    public function getAssignments($idClasswork)
+    {
+        $sql = "SELECT * FROM assignments WHERE idClasswork={$idClasswork}";
+        $result = $this->query($sql);
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 }
