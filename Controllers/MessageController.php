@@ -41,7 +41,7 @@ class MessageController extends BaseController
         $user = $this->getCurrentUser();
         // var_dump($user); exit();
         // var_dump($user['id']);
-        $messages = $this->messageModel->getMessagesByUser($user['id']);
+        $messages = $this->messageModel->getMessagesBySender($user['id']);
         $messages = array_reverse($messages);
         // print("<pre>" . print_r($messages, true) . "</pre>"); exit();
 
@@ -96,6 +96,48 @@ class MessageController extends BaseController
 
             $this->messageModel->insert($ms);
 
+            return header("Location: ?controller=message&action=messenger");
+        }
+    }
+
+    /**
+     * delete message in database
+     */
+    public function delete()
+    {
+        if (isset($_POST['id'])) {
+            $this->messageModel->deleteById($_POST['id']);
+
+            return header("Location: ?controller=message&action=messenger");
+        }
+    }
+
+    /**
+     * edit message in database
+     */
+    public function edit()
+    {
+        // print("<pre>" . print_r($_POST, true) . "</pre>"); exit();
+        if (isset($_POST['id']) && !isset($_POST['content'])) {
+            $message = $this->messageModel->getById($_POST['id']);
+            
+            // print("<pre>" . print_r($message, true) . "</pre>"); exit();
+
+            return $this->loadView('layout.header')
+                 . $this->loadView('layout.navbar')
+                 . $this->loadView('frontend.message.edit', $message)
+                 . $this->loadView('layout.footer');
+
+            return header("Location: ?controller=message&action=messenger");
+        }
+        // print("<pre>" . print_r($_POST, true) . "</pre>"); exit();
+        
+        if (isset($_POST['content'])) {
+            // print("<pre>" . print_r($_POST, true) . "</pre>"); exit();
+            $ms['id'] = $_POST['id'];
+            $ms['content'] = $_POST['content'];
+
+            $this->messageModel->edit($ms);
             return header("Location: ?controller=message&action=messenger");
         }
     }

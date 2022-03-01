@@ -10,12 +10,25 @@ foreach ($data['messages'] as $ms) {
 <?php foreach ($data['messages'] as $ms) { ?>
     <?php if ($ms['idSender'] == $_SESSION['id']) { ?>
         <div class="border border-primary" style="width: fit-content; margin-left: auto;">
-            <p><?= $ms['date'] ?></p>
+            <p class="mb-0"><?= $ms['date'] ?></p>
+            <div class="d-flex" style="width: fit-content; margin-left: auto;">
+
+                <form id="editForm<?= $ms['id'] ?>" method="POST" action="?controller=message&action=edit">
+                    <input type="hidden" name="id" value="<?= $ms['id'] ?>">
+                    <a class="pr-1" href="javascript:$('#editForm<?= $ms['id'] ?>').submit();">Sửa</a>
+                </form>
+
+                <form id="deleteForm<?= $ms['id'] ?>" method="POST" action="?controller=message&action=delete">
+                    <input type="hidden" name="id" value="<?= $ms['id'] ?>">
+                    <a href="javascript:$('#deleteForm<?= $ms['id'] ?>').submit();">Xoá</a>
+                </form>
+                
+            </div>
             <b><?= $ms['content'] ?></b>
         </div>
     <?php } else { ?>
         <div class="border border-primary" style="width: fit-content;">
-            <p><?= $ms['date'] ?></p>
+            <p class="mb-0"><?= $ms['date'] ?></p>
             <b><?= $ms['content'] ?></b>
         </div>
     <?php } ?>
