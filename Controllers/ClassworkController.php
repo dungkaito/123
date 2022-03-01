@@ -130,12 +130,10 @@ class ClassworkController extends BaseController
         $assignments = $this->classworkModel->getAssignments($classwork['id']);
         // print("<pre>" . print_r($assignments, true) . "</pre>"); exit();
         return $this->loadView('layout.header')
-            . $this->loadView('layout.navbar')
-            . $this->loadView('frontend.classwork.detail', [
-                'classwork' => $classwork,
-                'user' => $user,
-                'assignments' => $assignments
-            ])
+             . $this->loadView('layout.navbar')
+             . $this->loadView('frontend.classwork.detail', ['classwork' => $classwork,
+                                                             'user' => $user,
+                                                             'assignments' => $assignments])
             . $this->loadView('layout.footer');
     }
 

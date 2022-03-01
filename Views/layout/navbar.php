@@ -28,7 +28,7 @@
                     if(isset($_GET['action']) && $_GET['action'] == 'challenge')
                         echo ' style="border-bottom: 5px solid #5BC0EB; color: #5BC0EB" '; 
                 ?>
-                href="?controller=user&action=challenge">Thử thách</a>
+                href="?controller=challenge&action=main">Thử thách</a>
             </li>
 
         </ul>
