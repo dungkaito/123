@@ -152,14 +152,16 @@ class UserController extends BaseController
     public function detail()
     {
         $user = $this->userModel->getUser('id', $_REQUEST['id']);
-        
+        $currentUser = $this->getCurrentUser();
+
         if (!$user) {
             echo 'Error: Can not get user info.';
         }
 
         return $this->loadView('layout.header')
              . $this->loadView('layout.navbar')
-             . $this->loadView('frontend.user.detail', $user)
+             . $this->loadView('frontend.user.detail', ['user' => $user,
+                                                        'currentUser' => $currentUser])
              . $this->loadView('layout.footer');
     }
 
@@ -271,6 +273,12 @@ class UserController extends BaseController
 
     }
 
-    
+    /**
+     * messenge controller
+     */
+    public function messenger()
+    {
+
+    }
 
 }

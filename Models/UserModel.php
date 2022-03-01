@@ -27,7 +27,9 @@ class UserModel extends BaseModel
 
     /**
      * get an user by $column
-     * @return array    an user record
+     * @param string $column    column to filter
+     * @param string $value     column value
+     * @return array            an user record
      */
     public function getUser($column, $value)
     {

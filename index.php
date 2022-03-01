@@ -6,7 +6,7 @@ require_once './Controllers/BaseController.php';
 
 /*   route: ?controller={controllerName}&action={actionName}   */
 
-$controllerList = ['Site', 'User'];
+$controllerList = ['Site', 'User', 'Message'];
 
 $controllerName = ucfirst(strtolower($_REQUEST['controller'] ?? '/'));
 
