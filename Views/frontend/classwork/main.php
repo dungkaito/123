@@ -18,18 +18,26 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Tiêu đề</th>
-                    <th scope="col">Giáo viên</th>
+                    <th scope="col">Ngày đăng</th>
                     <th scope="col" style="width:1%;"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>bài tập php</td>
-                    <td>Bùi Dương</td>
-                    <td><a href="#" class="btn btn-info btn-sm" style="white-space: nowrap">Xem thông tin</a></td>
+            <?php $count = 1 ?>
+                <?php foreach ($data['classworks'] as $cw) { ?>
 
-                </tr>
+                        <tr>
+
+
+                            <th scope="row"><?= $count++; ?></th>
+                            <td><?= $cw['title']; ?></td>
+                            <td><?= $cw['date']; ?></td>
+                            <td><a href="?controller=classwork&action=detail&id=<?= $cw['id'] ?>" class="btn btn-info btn-sm" style="white-space: nowrap">Xem chi tiết</a></td>
+                            
+
+                        </tr>
+
+                <?php } ?>
             </tbody>
         </table>
     </div>
