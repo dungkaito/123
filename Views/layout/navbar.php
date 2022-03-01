@@ -20,7 +20,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" <?php
-                                    if (isset($_GET['action']) && $_GET['action'] == 'challenge')
+                                    if (isset($_GET['controller']) && $_GET['controller'] == 'challenge')
                                         echo ' style="border-bottom: 5px solid #5BC0EB; color: #5BC0EB" ';
                                     ?> href="?controller=challenge&action=main">Thử thách</a>
             </li>

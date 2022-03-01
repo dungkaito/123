@@ -32,8 +32,9 @@
                         <th scope="row"><?= $count++; ?></th>
                         <td><?= $c['title']; ?></td>
                         <td><?= $c['date']; ?></td>
+                        <?php if ($data['user']['role'] == 2) { ?>
                         <td><a href="?controller=challenge&action=detail&id=<?= $c['id'] ?>" class="btn btn-info btn-sm" style="white-space: nowrap">Chơi</a></td>
-
+                        <?php } ?>
 
                     </tr>
 
