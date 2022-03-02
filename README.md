@@ -1,4 +1,4 @@
-# challege5a_dungdd
+# challenge5a_dungdd
 Online classroom management using PHP (without use of any framework) and MySQL. The primary purpose is to streamline the communication and process of sharing files between teachers and students.
 
 ## Usage
